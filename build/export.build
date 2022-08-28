@@ -1,0 +1,6 @@
+$out_root/
+{
+  include libcrails-readfile/
+}
+
+export $out_root/libcrails-readfile/$import.target

@@ -1,0 +1,28 @@
+lib{crails-readfile}: {hxx ixx txx cxx}{**} $impl_libs $intf_libs
+
+hxx{export}@./: cxx.importable = false
+
+cxx.poptions =+ "-I$out_root" "-I$src_root"
+
+{hbmia obja}{*}: cxx.poptions += -DLIBCRAILS_READFILE_STATIC_BUILD
+{hbmis objs}{*}: cxx.poptions += -DLIBCRAILS_READFILE_SHARED_BUILD
+
+lib{crails-readfile}:
+{
+  cxx.export.poptions = "-I$out_root" "-I$src_root"
+  cxx.export.libs = $intf_libs
+}
+
+liba{crails-readfile}: cxx.export.poptions += -DLIBCRAILS_READFILE_STATIC
+libs{crails-readfile}: cxx.export.poptions += -DLIBCRAILS_READFILE_SHARED
+
+if $version.pre_release
+  lib{crails-readfile}: bin.lib.version = "-$version.project_id"
+else
+  lib{crails-readfile}: bin.lib.version = "-$version.major.$version.minor"
+
+{hxx ixx txx}{*}:
+{
+  install         = include/crails/
+  install.subdirs = true
+}
