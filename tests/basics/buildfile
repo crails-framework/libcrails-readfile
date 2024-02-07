@@ -1,0 +1,3 @@
+import libs = libcrails-readfile%lib{crails-readfile}
+
+exe{driver}: {hxx ixx txx cxx}{**} $libs testscript{**}
